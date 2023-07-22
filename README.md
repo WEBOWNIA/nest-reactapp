@@ -46,8 +46,7 @@ The application is built using the following technologies:
 
 ### Folder Structure
 The repository's folder structure is organized as follows:
-
-### graphql
+### Graphql
 ```
 - public/          # Public assets (images, etc.)
 - pages/           # Next.js pages and API routes
@@ -60,8 +59,6 @@ The repository's folder structure is organized as follows:
 - next.config.js   # Next.js configuration file
 - package.json     # npm package configuration
 - README.md        # This file
-Contributing
-Contributions to the project are welcome! If you find any issues or have improvements to suggest, feel free to open a pull request.
 ```
 ## License
 The project is licensed under the MIT License.
