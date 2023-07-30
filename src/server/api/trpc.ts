@@ -82,7 +82,7 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
  *
  * @see https://trpc.io/docs/router
  */
-export const createTRPCRouter = t.router;
+export const homeTRPCRouter = t.router;
 
 /**
  * Public (unauthenticated) procedure
@@ -92,3 +92,5 @@ export const createTRPCRouter = t.router;
  * are logged in.
  */
 export const publicProcedure = t.procedure;
+
+

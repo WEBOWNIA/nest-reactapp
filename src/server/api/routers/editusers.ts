@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "Y/server/api/trpc";
+import { homeTRPCRouter, publicProcedure } from "Y/server/api/trpc";
 
 const idSchema = z.object({ id: z.string() });
 
@@ -14,7 +14,7 @@ const userUpdateSchema = z.object({
   email: z.string(),
 });
 
-export const exampleRouter = createTRPCRouter({
+export const homeRouter = homeTRPCRouter({
   //get all users
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.user.findMany();

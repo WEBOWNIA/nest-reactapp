@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { api } from "Y/utils/api";
+import Link from "next/link";
 
 export default function Home() {
   //define constants
@@ -12,12 +13,12 @@ export default function Home() {
   const [userIdToDelete, setUserIdToDelete] = useState("");
 
   //define functions
-  const fetchAllUsers = api.example.getAll.useQuery();
-  const fetchOneUser = api.example.getOne.useQuery({ id: userId });
+  const fetchAllUsers = api.home.getAll.useQuery();
+  const fetchOneUser = api.home.getOne.useQuery({ id: userId });
 
-  const createUserMutation = api.example.createUser.useMutation();
-  const updateUserMutation = api.example.updateUser.useMutation();
-  const deleteUserMutation = api.example.deleteUser.useMutation();
+  const createUserMutation = api.home.createUser.useMutation();
+  const updateUserMutation = api.home.updateUser.useMutation();
+  const deleteUserMutation = api.home.deleteUser.useMutation();
 
   //define handlers
   const handleCreateUser = async () => {
@@ -62,21 +63,14 @@ export default function Home() {
     }
   };
 
-  //return an empty div
+  // Return JSX
   return (
     <div className="mx-auto p-8">
       <div className="mb-8">
-        <h2 className="mb-4 text-2xl font-bold">Get All Users</h2>
-      </div>
-      <button
-        className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-        onClick={() => fetchAllUsers.refetch()}
-      >
-        Get All Users
-      </button>
 
-      <div className="text- mb-4 mt-4 grid grid-cols-3 gap-4 font-bold">
-        <p>Id</p>
+      </div>
+
+      <div className="text- mb-4 mt-4 grid grid-cols-4 gap-4 font-bold">
         <p>Name</p>
         <p>Email</p>
       </div>
@@ -85,31 +79,40 @@ export default function Home() {
         fetchAllUsers.data.map((user) => (
           <div
             key={user.id}
-            className="my-4 grid grid-cols-3 gap-4 rounded border border-gray-300 bg-white p-4 shadow"
+            className="my-4 grid grid-cols-4 gap-4 rounded border border-gray-300 bg-white p-4 shadow"
           >
-            <p>{user.id}</p>
             <p>{user.name}</p>
             <p>{user.email}</p>
+
+            {/* Buttons for each record */}
+            <button
+              className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+              onClick={() => {
+                setNameToUpdate(user.name);
+                setEmailToUpdate(user.email);
+                setUserIdToUpdate(user.id);
+              }}
+            >
+              Update User
+            </button>
+
+            <button
+              className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+              onClick={() => {
+                setUserIdToDelete(user.id);
+              }}
+            >
+              Delete User
+            </button>
           </div>
         ))}
 
       {/* Get one user UI */}
-
       <div className="mb-8">
-        <h2 className="mb-4 text-2xl font-bold">Get One User</h2>
         <div className="mb-4 flex">
-          <input
-            className="mr-2 border border-gray-300 p-2"
-            placeholder="Enter user id to get"
-            value={userId || ""}
-            onChange={(e) => setUserId(String(e.target.value))}
-          />
-          <button
-            className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-            onClick={() => fetchOneUser.refetch()}
-          >
-            Get One User
-          </button>
+          
+          
+
         </div>
         {fetchOneUser.data && (
           <div>
@@ -177,7 +180,6 @@ export default function Home() {
       </div>
 
       {/* Delete User */}
-
       <div className="mb-8">
         <h2 className="mb-4 text-2xl font-bold">Delete User</h2>
         <input
@@ -193,6 +195,15 @@ export default function Home() {
           Delete User
         </button>
       </div>
+{/* Navigation to Home Page */}
+<div className="mb-8">
+        {/* Return Button */}
+        <Link href="/home">
+          <button className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
+            Return
+          </button>
+        </Link>
+    </div>
     </div>
   );
 }
